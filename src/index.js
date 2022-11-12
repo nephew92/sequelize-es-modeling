@@ -1,25 +1,33 @@
-import { User } from "./db/models";
-import Site from "./db/models/site";
+import { Site, User } from "./db/models";
 
 (async () => {
   try {
 
-    const joao = new User({
+    const joao = await User.create({
       firstName: 'Joao',
       lastName: 'Coriolano'
     })
-    const site = new Site({ title: 'Shop' })
 
+    const maria = await User.create({
+      active: false,
+      firstName: 'Maria',
+      lastName: 'Iraci'
+    })
 
-    await joao.save()
-    await site.save()
+    const site = await Site.create({ title: 'Shop' })
 
     await joao.setSite(site)
 
-    console.log(joao.get())
+    {
+      const usersActive = await User.scope('limited', 'actives').findAll()
+      const usersSite = await User.scope('limited', 'withSites').findAll()
+      const users = await User.scope('limited').findAll()
+      console.log(JSON.stringify({ users, usersActive, usersSite }, null, 2))
+    }
 
-    await joao.destroy()
-    await site.destroy()
+
+    // await joao.destroy()
+    // await site.destroy()
 
   } catch (error) {
     console.log(error);
