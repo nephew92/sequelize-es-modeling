@@ -9,12 +9,16 @@
   },
   "scripts": {
     "start": "node -r esm index.js",
+    "sequelize": "sequelize-cli",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "esm": "^3.2.25"
+    "esm": "^3.2.25",
+    "sequelize": "^6.25.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sequelize-cli": "^6.5.2"
+  }
 }
