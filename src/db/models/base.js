@@ -48,6 +48,7 @@ export default class BaseModel extends Model {
       underscored: true,
       paranoid: true,
       timestamps: true,
+      modelName: this.name.toLowerCase()
     }
   }
 }

@@ -7,17 +7,4 @@ export default class Site extends BaseModel {
       title: STRING,
     }
   }
-
-  static associate() { }
-
-  static get opts() {
-    return {
-      ...super.opts,
-      name: {
-        plural: 'sites',
-        singular: 'site',
-      }
-    }
-  }
-
 }
