@@ -1,4 +1,4 @@
-import { INTEGER, STRING } from "sequelize";
+import { STRING } from "sequelize";
 import BaseModel from "./base";
 
 export default class Site extends BaseModel {

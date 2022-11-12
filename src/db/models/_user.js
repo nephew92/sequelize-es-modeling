@@ -1,4 +1,4 @@
-import { BOOLEAN, INTEGER, Op, STRING, VIRTUAL } from "sequelize";
+import { BOOLEAN, Op, STRING } from "sequelize";
 import BaseModel from "./base";
 import Site from "./_site";
 
