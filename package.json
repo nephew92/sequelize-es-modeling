@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node -r esm index.js",
     "sequelize": "sequelize-cli",
+    "sync": "node -r esm src/db/sync.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
