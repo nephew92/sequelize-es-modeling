@@ -16,7 +16,8 @@
   "license": "ISC",
   "dependencies": {
     "esm": "^3.2.25",
-    "sequelize": "^6.25.5"
+    "sequelize": "^6.25.5",
+    "sqlite3": "^5.1.2"
   },
   "devDependencies": {
     "sequelize-cli": "^6.5.2"
