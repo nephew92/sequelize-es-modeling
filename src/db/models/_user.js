@@ -1,4 +1,4 @@
-import { BOOLEAN, Op, STRING } from "sequelize";
+import { BOOLEAN, Op, STRING, VIRTUAL } from "sequelize";
 import BaseModel from "./base";
 import Site from "./_site";
 
@@ -8,6 +8,12 @@ export default class User extends BaseModel {
       firstName: STRING,
       lastName: STRING,
       email: STRING,
+      fullName: {
+        type: VIRTUAL,
+        get() {
+          return `${this.firstName} ${this.lastName}`
+        }
+      },
       active: {
         type: BOOLEAN,
         defaultValue: true,
