@@ -12,11 +12,27 @@ sequelize.authenticate().then(() => {
 })
 
 export default class BaseModel extends Model {
+  getChangedValues() {
+    return [...this._changed].reduce((changes, field) => {
+      changes[field] = this[field]
+      return changes
+    }, {})
+  }
+
   static init() {
     super.init(this.fields, this.opts)
   }
 
   static associate() { }
+
+  static scope(...options) {
+    if (this._scopeOptions) {
+      options = [].concat(this._scopeOptions, options)
+    }
+    return class extends super.scope(options) {
+      static _scopeOptions = options;
+    }
+  }
 
   /**
    * @type {import("sequelize").ModelAttributes}
