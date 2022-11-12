@@ -1,5 +1,5 @@
-import Site from "./site";
-import User from "./user";
+import Site from "./_site";
+import User from "./_user";
 
 User.init()
 Site.init()

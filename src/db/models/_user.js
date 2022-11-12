@@ -1,6 +1,6 @@
 import { INTEGER, STRING } from "sequelize";
 import BaseModel from "./base";
-import Site from "./site";
+import Site from "./_site";
 
 export default class User extends BaseModel {
   static get fields() {
