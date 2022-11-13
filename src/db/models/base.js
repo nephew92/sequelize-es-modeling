@@ -20,7 +20,8 @@ export default class BaseModel extends Model {
   }
 
   static init() {
-    super.init(this.fields, this.opts)
+    const { fields, sequelize, scopes, hooks, timestamps, paranoid, underscored, modelName, createdAt, deletedAt, updatedAt, tableName } = this
+    super.init(fields, { sequelize, scopes, hooks, timestamps, paranoid, underscored, modelName, createdAt, deletedAt, updatedAt, tableName })
   }
 
   static associate() { }
@@ -37,18 +38,60 @@ export default class BaseModel extends Model {
   /**
    * @type {import("sequelize").ModelAttributes}
    */
-  static get fields() { return {} }
+  static fields = {};
 
   /**
-   * @type {import("sequelize").InitOptions}
+   * @type {Sequelize}
    */
-  static get opts() {
-    return {
-      sequelize,
-      underscored: true,
-      paranoid: true,
-      timestamps: true,
-      modelName: this.name.toLowerCase()
-    }
-  }
+  static sequelize = sequelize;
+
+  /**
+   * @type {import("sequelize").ModelScopeOptions}
+   */
+  static scopes;
+
+  /**
+   * @type {import("sequelize/types/hooks").ModelHooks}
+  */
+  static hooks;
+
+  /**
+   * @type {boolean}
+   */
+  static timestamps = true;
+
+  /**
+   * @type {boolean}
+   */
+  static paranoid = true;
+
+  /**
+   * @type {boolean}
+   */
+  static underscored = true;
+
+  /**
+   * @type {string | boolean}
+   */
+  static createdAt;
+
+  /**
+   * @type {string | boolean}
+   */
+  static deletedAt;
+
+  /**
+   * @type {string | boolean}
+   */
+  static updatedAt;
+
+  /**
+   * @type {string}
+   */
+  static get modelName() { return this.name.toLowerCase() }
+
+  /**
+   * @type {string}
+   */
+  static tableName;
 }

@@ -4,37 +4,33 @@ import Site from "./_site";
 import User from "./_user";
 
 export default class Audit extends BaseModel {
-  static get fields() {
-    return {
-      changes: JSONB,
-      entityType: STRING,
-      entityId: INTEGER,
-      action: {
-        type: ENUM,
-        values: ['create', 'update', 'destroy', 'restore']
-      }
-    }
-  }
 
-  static get opts() {
-    return {
-      ...super.opts,
-      deletedAt: false,
-      createdAt: true,
-      updatedAt: false,
-      paranoid: false,
-      scopes: {
-        entity(entityType) { return { where: { entityType } } },
-        action(action) { return { where: { action } } },
-        site(siteId) { return { where: { siteId } } },
-        user() { return { where: { userId: Audit.getContextUser() } } },
-      },
-      hooks: {
-        beforeUpdate: () => { throw new Error("This is a read-only history database. You aren't allowed to modify it.") },
-        beforeDestroy: () => { throw new Error("This is a read-only history database. You aren't allowed to modify it.") },
-      },
+  static fields = {
+    changes: JSONB,
+    entityType: STRING,
+    entityId: INTEGER,
+    action: {
+      type: ENUM,
+      values: ['create', 'update', 'destroy', 'restore']
     }
-  }
+  };
+
+  static deletedAt = false;
+  static createdAt = true;
+  static updatedAt = false;
+  static paranoid = false;
+
+  static scopes = {
+    entity(entityType) { return { where: { entityType } } },
+    action(action) { return { where: { action } } },
+    site(siteId) { return { where: { siteId } } },
+    user() { return { where: { userId: Audit.getContextUser() } } },
+  };
+
+  static hooks = {
+    beforeUpdate: () => { throw new Error("This is a read-only history database. You aren't allowed to modify it.") },
+    beforeDestroy: () => { throw new Error("This is a read-only history database. You aren't allowed to modify it.") },
+  };
 
   static associate() {
     Audit.belongsTo(User)
