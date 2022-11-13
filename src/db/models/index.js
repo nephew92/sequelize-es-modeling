@@ -1,17 +1,11 @@
+import { sequelize } from "./base";
 import Audit from "./_audit";
 import Site from "./_site";
 import User from "./_user";
 
-User.init()
-Site.init()
-Audit.init()
+sequelize.initModels(User, Site, Audit)
 
-User.associate()
-Site.associate()
-Audit.associate()
-
-Audit.listen(User)
-Audit.listen(Site)
+Audit.listen(User, Site)
 
 export {
   User,

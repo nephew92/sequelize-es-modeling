@@ -3,13 +3,27 @@ import { development } from '../../config/config.json'
 
 const { dialect, storage } = development
 
-export const sequelize = new Sequelize({ dialect, storage });
+export const sequelize = new class extends Sequelize {
+  constructor() {
+    super({ dialect, storage })
 
-sequelize.authenticate().then(() => {
-  console.log('Connection has been established successfully.');
-}).catch(error => {
-  console.error('Unable to connect to the database:', error);
-})
+    this.authenticate().then(() => {
+      console.log('Connection has been established successfully.');
+    }).catch(error => {
+      console.error('Unable to connect to the database:', error);
+    })
+  }
+
+  initModels(...Models) {
+    for (let Model of Models) {
+      Model.init()
+    }
+
+    for (let Model of Models) {
+      Model.associate()
+    }
+  }
+}
 
 export default class BaseModel extends Model {
   getChangedValues() {

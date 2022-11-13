@@ -37,6 +37,12 @@ export default class Audit extends BaseModel {
     Audit.belongsTo(Site)
   }
 
+  static listens(...Models) {
+    for (let Model of Models) {
+      Audit.listen(Model)
+    }
+  }
+
   static listen(Model) {
     const EntityScope = Audit.scope({ method: ['entity', Model.tableName] })
 
